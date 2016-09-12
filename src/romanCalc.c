@@ -22,7 +22,7 @@ int parseRomeNum(char *str)
 
   for ( i=size; i>=0; --i) {
 
-    switch ( str[i] )
+    switch ( toupper(str[i]) )
       {
 
       case 'I' :

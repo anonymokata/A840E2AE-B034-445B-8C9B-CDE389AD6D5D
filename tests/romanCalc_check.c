@@ -18,7 +18,7 @@ START_TEST(test_whole_number_parse)
 {
   ck_assert_int_eq(parseRomeNum("III"), 3);
   ck_assert_int_eq(parseRomeNum("XIV"), 14);
-  ck_assert_int_eq(parseRomeNum("XVI"), 16);
+  ck_assert_int_eq(parseRomeNum("xvi"), 16);
   ck_assert_int_eq(parseRomeNum("MMMCMXCIX"), 3999);
 }
 END_TEST
@@ -61,7 +61,7 @@ START_TEST(test_final_functionality)
 
   char test1[] = "X + V";
   char test2[] = "X-IV";
-  char test3[] = "\"DXI\" + \"XIV\"";
+  char test3[] = "\"dxi\" +\"XIV\"";
 
   strcpy(test, test1);
   romanMath(test);
