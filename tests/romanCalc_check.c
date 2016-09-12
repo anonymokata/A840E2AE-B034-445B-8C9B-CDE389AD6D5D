@@ -14,16 +14,29 @@ START_TEST(test_numeral_parse)
 }
 END_TEST
 
+START_TEST(test_whole_number_parse)
+{
+  ck_assert_int_eq(parseRomeNum("III"), 3);
+  ck_assert_int_eq(parseRomeNum("XIV"), 14);
+  ck_assert_int_eq(parseRomeNum("XVI"), 16);
+  ck_assert_int_eq(parseRomeNum("MMMCMXCIX"), 3999);
+}
+END_TEST
+
 Suite * rome_suite(void)
 {
   Suite *s;
-  TCase *tc_parse_num;
+  TCase *tc_parse_num, *tc_parse_whole_num;
 
   s = suite_create("This is Rome!");
   tc_parse_num = tcase_create("Parse Numbers Test");
+  tc_parse_whole_num = tcase_create("Parse Whole Numbers Test");
 
   tcase_add_test(tc_parse_num, test_numeral_parse);
+  tcase_add_test(tc_parse_whole_num, test_whole_number_parse);
+  
   suite_add_tcase(s, tc_parse_num);
+  suite_add_tcase(s, tc_parse_whole_num);
 
   return s;
 }

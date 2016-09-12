@@ -3,38 +3,55 @@
 #include <string.h>
 #include "romanCalc.h"
 
+int lastOutput(int digit, int lastnum, int num)
+{
+  if ( lastnum > digit ) {
+    return num - digit;
+  } else {
+    return num + digit;
+  }
+}
+
 int parseRomeNum(char *str)
 {
-  int output, size, i;
+  int output, lastout, size, i;
 
   size = strlen(str);
   output = 0;
+  lastout = 0;
 
   for ( i=size; i>=0; --i) {
 
-    switch(str[i])
+    switch ( str[i] )
       {
 
       case 'I' :
-	output += 1;
+	output = lastOutput(1, lastout, output);
+	lastout = 1;
 	break;
       case 'V' :
-	output += 5;
+	output = lastOutput(5, lastout, output);
+	lastout = 5;
 	break;
       case 'X' :
-	output += 10;
+	output = lastOutput(10, lastout, output);
+	lastout = 10;
 	break;
       case 'L' :
-	output += 50;
+	output = lastOutput(50, lastout, output);
+	lastout = 50;
 	break;
       case 'C' :
-	output += 100;
+	output = lastOutput(100, lastout, output);
+	lastout = 100;
 	break;
       case 'D' :
-	output += 500;
+	output = lastOutput(500, lastout, output);
+	lastout = 500;
 	break;
       case 'M' :
-	output += 1000;
+	output = lastOutput(1000, lastout, output);
+	lastout = 1000;
 	break;
       }
   }
