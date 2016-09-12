@@ -38,27 +38,48 @@ START_TEST(test_sub_numerals)
 }
 END_TEST
 
+START_TEST(test_int_to_numeral)
+{
+  char test[100];
+
+  parseIntNum(3,test);
+  ck_assert_str_eq(test, "III");
+  parseIntNum(14,test);
+  ck_assert_str_eq(test, "XIV");
+  parseIntNum(16,test);
+  ck_assert_str_eq(test, "XVI");
+  parseIntNum(3999,test);
+  ck_assert_str_eq(test, "MMMCMXCIX");
+  parseIntNum(4000,test);
+  ck_assert_str_eq(test, "No true Roman would use a number that large");
+}
+END_TEST
+
 Suite * rome_suite(void)
 {
   Suite *s;
-  TCase *tc_parse_num, *tc_parse_whole_num, *tc_add_test, *tc_sub_test;
+  TCase *tc_parse_num, *tc_parse_whole_num, *tc_add_test, *tc_sub_test, *tc_int_to_num;
 
   s = suite_create("This is Rome!");
   tc_parse_num = tcase_create("Parse Numbers Test");
   tc_parse_whole_num = tcase_create("Parse Whole Numbers Test");
   tc_add_test = tcase_create("Addition Test");
   tc_sub_test = tcase_create("Subtraction Test");
+  tc_int_to_num = tcase_create("Int to Numeral Test");
 
 
   tcase_add_test(tc_parse_num, test_numeral_parse);
   tcase_add_test(tc_parse_whole_num, test_whole_number_parse);
   tcase_add_test(tc_add_test, test_add_numerals);
   tcase_add_test(tc_sub_test, test_sub_numerals);
+  tcase_add_test(tc_int_to_num, test_int_to_numeral);
+  
   
   suite_add_tcase(s, tc_parse_num);
   suite_add_tcase(s, tc_parse_whole_num);
   suite_add_tcase(s, tc_add_test);
   suite_add_tcase(s, tc_sub_test);
+  suite_add_tcase(s, tc_int_to_num);
 
   return s;
 }
