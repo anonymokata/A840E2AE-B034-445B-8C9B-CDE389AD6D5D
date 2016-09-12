@@ -8,5 +8,11 @@ TEST_DIR = tests
 
 all: $(TESTNAME)
 
-$(TESTNAME): $(SRC_DIR)/$(NAME).c $(TEST_DIR)/$(TESTNAME).c
-	gcc $(CFLAGS) -o $(TESTNAME) $(SRC_DIR)/$(NAME).c $(TEST_DIR)/$(TESTNAME).c $(LFLAGS)
+$(NAME).o: $(SRC_DIR)/$(NAME).c $(SRC_DIR)/$(NAME).h
+	gcc $(CFLAGS) -c -o $(NAME).o $(SRC_DIR)/$(NAME).c
+
+$(TESTNAME): $(NAME).o $(TEST_DIR)/$(TESTNAME).c
+	gcc $(CFLAGS) -o $(TESTNAME) $(NAME).o $(TEST_DIR)/$(TESTNAME).c $(LFLAGS)
+
+clean:
+	rm $(TESTNAME) $(NAME).o

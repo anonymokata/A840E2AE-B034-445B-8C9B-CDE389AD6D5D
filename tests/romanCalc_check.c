@@ -23,20 +23,42 @@ START_TEST(test_whole_number_parse)
 }
 END_TEST
 
+START_TEST(test_add_numerals)
+{
+  ck_assert_int_eq(addNumbers("V","V"), 10);
+  ck_assert_int_eq(addNumbers("XX","XIV"), 34);
+}
+END_TEST
+
+START_TEST(test_sub_numerals)
+{
+  ck_assert_int_eq(subNumbers("V","V"), 0);
+  ck_assert_int_eq(subNumbers("XX","XIV"), 6);
+  ck_assert_int_eq(subNumbers("XIV","XX"), -6);
+}
+END_TEST
+
 Suite * rome_suite(void)
 {
   Suite *s;
-  TCase *tc_parse_num, *tc_parse_whole_num;
+  TCase *tc_parse_num, *tc_parse_whole_num, *tc_add_test, *tc_sub_test;
 
   s = suite_create("This is Rome!");
   tc_parse_num = tcase_create("Parse Numbers Test");
   tc_parse_whole_num = tcase_create("Parse Whole Numbers Test");
+  tc_add_test = tcase_create("Addition Test");
+  tc_sub_test = tcase_create("Subtraction Test");
+
 
   tcase_add_test(tc_parse_num, test_numeral_parse);
   tcase_add_test(tc_parse_whole_num, test_whole_number_parse);
+  tcase_add_test(tc_add_test, test_add_numerals);
+  tcase_add_test(tc_sub_test, test_sub_numerals);
   
   suite_add_tcase(s, tc_parse_num);
   suite_add_tcase(s, tc_parse_whole_num);
+  suite_add_tcase(s, tc_add_test);
+  suite_add_tcase(s, tc_sub_test);
 
   return s;
 }

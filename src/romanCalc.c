@@ -58,3 +58,13 @@ int parseRomeNum(char *str)
 
   return output;
 }
+
+int addNumbers(char *str1, char *str2)
+{
+  return parseRomeNum(str1) + parseRomeNum(str2);
+}
+
+int subNumbers(char *str1, char *str2)
+{
+  return parseRomeNum(str1) - parseRomeNum(str2);
+}

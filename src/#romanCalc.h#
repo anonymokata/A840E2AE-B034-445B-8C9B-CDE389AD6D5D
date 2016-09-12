@@ -1,7 +1,0 @@
-#ifndef ROME_HEADER
-#define ROME_HEADER
-
-int lastOutput(int digit, int lastnum, int num);
-int parseRomeNum(char *str);
-
-#endif
