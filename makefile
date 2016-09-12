@@ -1,4 +1,4 @@
-CFLAGS = -O2
+CFLAGS = -O0
 LFLAGS = `pkg-config --libs check`
 
 NAME = romanCalc
@@ -13,6 +13,9 @@ $(NAME).o: $(SRC_DIR)/$(NAME).c $(SRC_DIR)/$(NAME).h
 
 $(TESTNAME): $(NAME).o $(TEST_DIR)/$(TESTNAME).c
 	gcc $(CFLAGS) -o $(TESTNAME) $(NAME).o $(TEST_DIR)/$(TESTNAME).c $(LFLAGS)
+
+check: $(TESTNAME)
+	./$(TESTNAME)
 
 clean:
 	rm $(TESTNAME) $(NAME).o

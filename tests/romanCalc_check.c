@@ -55,10 +55,30 @@ START_TEST(test_int_to_numeral)
 }
 END_TEST
 
+START_TEST(test_final_functionality)
+{
+  char test[100];
+
+  char test1[] = "X + V";
+  char test2[] = "X-IV";
+  char test3[] = "\"DXI\" + \"XIV\"";
+
+  strcpy(test, test1);
+  romanMath(test);
+  ck_assert_str_eq(test, "XV");
+  strcpy(test, test2);
+  romanMath(test);
+  ck_assert_str_eq(test, "VI");
+  strcpy(test, test3);
+  romanMath(test);
+  ck_assert_str_eq(test, "DXXV");
+}
+END_TEST
+
 Suite * rome_suite(void)
 {
   Suite *s;
-  TCase *tc_parse_num, *tc_parse_whole_num, *tc_add_test, *tc_sub_test, *tc_int_to_num;
+  TCase *tc_parse_num, *tc_parse_whole_num, *tc_add_test, *tc_sub_test, *tc_int_to_num, *tc_final;
 
   s = suite_create("This is Rome!");
   tc_parse_num = tcase_create("Parse Numbers Test");
@@ -66,6 +86,7 @@ Suite * rome_suite(void)
   tc_add_test = tcase_create("Addition Test");
   tc_sub_test = tcase_create("Subtraction Test");
   tc_int_to_num = tcase_create("Int to Numeral Test");
+  tc_final = tcase_create("Final functionality Test");
 
 
   tcase_add_test(tc_parse_num, test_numeral_parse);
@@ -73,6 +94,7 @@ Suite * rome_suite(void)
   tcase_add_test(tc_add_test, test_add_numerals);
   tcase_add_test(tc_sub_test, test_sub_numerals);
   tcase_add_test(tc_int_to_num, test_int_to_numeral);
+  tcase_add_test(tc_final, test_final_functionality);
   
   
   suite_add_tcase(s, tc_parse_num);
@@ -80,6 +102,7 @@ Suite * rome_suite(void)
   suite_add_tcase(s, tc_add_test);
   suite_add_tcase(s, tc_sub_test);
   suite_add_tcase(s, tc_int_to_num);
+  suite_add_tcase(s, tc_final);
 
   return s;
 }

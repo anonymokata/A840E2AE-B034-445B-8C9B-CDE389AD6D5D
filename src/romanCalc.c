@@ -103,7 +103,7 @@ void parseIntNum(int num, char *output)
   vals[13] = "No true Roman would use a number that large";
   index = 0;
 
-  if(num > 3999) {
+  if (num > 3999) {
     for ( j=0; j<strlen(vals[13]); j++) {
       output[index++] = vals[13][j];
     }
@@ -121,4 +121,70 @@ void parseIntNum(int num, char *output)
   }
   output[index] = '\0';
   printf("\n");
+}
+
+void romanMath(char *str)
+{
+  int strLen, aStart, aStop, addsub, bStart, bStop, i;
+  char *a, *b, c[50];
+
+  strLen = strlen(str);
+  addsub = -1;
+  bStop = -1;
+
+  //Find start of first number
+  if ( isalnum(str[0])) {
+    aStart = 0;
+  } else {
+    aStart = 1;
+  }
+  //Find end of first number
+  for ( i=1; i < strLen; i++) {
+    if ( !isalnum(str[i]) ) {
+      aStop = i;
+      break;
+    }
+  }
+  //Find the operation
+  for ( i=aStop; i < strLen; i++) {
+    bStart = i;
+    if ( str[i] == '+' ) {
+      addsub = 1;
+      break;
+    } else if ( str[i] == '-' ) {
+      addsub = 0;
+      break;
+    }
+  }
+  //Find the start of the second number
+  for ( i=bStart; i < strLen; i++) {
+    if ( isalnum(str[i]) ) {
+      bStart = i;
+      break;
+    }
+  }
+  //Find the end of the second number
+  for ( i=bStart+1; i < strLen; i++) {
+    if ( !isalnum(str[i]) ) {
+      bStop = i;
+      break;
+    }
+  }
+  if ( bStop == -1 ) {
+    bStop = strLen;
+  }
+
+  a = (char*)malloc(aStop - aStart);
+  b = (char*)malloc(bStop - bStart);
+
+  strncpy(a, str+aStart, aStop - aStart);
+  strncpy(b, str+bStart, bStop - bStart);
+
+  if ( addsub ) {
+    parseIntNum(addNumbers(a,b), c);
+  } else {
+    parseIntNum(subNumbers(a,b), c);
+  }
+  
+  strcpy(str, c);
 }
